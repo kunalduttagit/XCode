@@ -119,6 +119,38 @@ int MoveToHeadLinearSearch (struct Array *arr, int key)
     return -1;
 }
 
+int BinarySearch(struct Array arr, int key)
+{
+    int low, mid, high;
+    low = 0; high = arr.length-1;
+    while(low <= high)
+    {
+        mid = (low+high)/2;
+        if(key == arr.A[mid])
+            return mid;
+        else if(key < arr.A[mid])
+            high = mid-1;
+        else
+            low = mid+1;
+    }
+    return -1;
+}
+
+int RecursiveBinarySearch(int a[], int low, int high, int key)
+{
+    int mid;
+    while(low <= high)
+    {
+        mid = (low+high)/2;
+        if(key == a[mid])
+            return mid;
+        else if(key < a[mid])
+            RecursiveBinarySearch(a, low, mid-1, key);
+        else
+            RecursiveBinarySearch(a, mid+1, high, key);
+    }
+    return -1;
+}
 
 int main()
 {
@@ -177,22 +209,55 @@ int main()
             }
             case 6:
             {
-                printf("Choose Search Type");
-                printf("\n1. Linear Search\n2. Transposition LS\n3. Move to Head LS\n(Note: 2 and 3 will affect your array");
+                printf("Choose Search Type ");
+                printf("\n1. Linear Search\n2. Transposition LS\n3. Move to Head LS\n4. Binary Search\n5.Recursive Binary Search\n(Note: 2 and 3 will affect your array\n");
                 int s; scanf("%d", &s);
                 switch(s)
                 {
                     case 1:
                     {
-                        printf("Enter Key to be found");
+                        printf("Enter Key to be found ");
                         int key; scanf("%d", &key);
                         int x = LinearSearch(arr, key);
-                        x != -1 ? printf("Found at Index %d", x) : printf("Key Not Found");
+                        x != -1 ? printf("\nFound at Index %d", x) : printf("\nKey Not Found");
+                        break;
                     }
                     case 2:
                     {
-                        
+                        printf("Enter Key to be found ");
+                        int key; scanf("%d", &key);
+                        int x = TranspositionLinearSearch(&arr, key);
+                        x != -1 ? printf("\nFound at Index %d", x) : printf("\nKey Not Found");
+                        break;
+
                     }
+                    case 3:
+                    {
+                        printf("Enter Key to be found ");
+                        int key; scanf("%d", &key);
+                        int x = MoveToHeadLinearSearch(&arr, key);
+                        x != -1 ? printf("\nFound at Index %d", x) : printf("\nKey Not Found");
+                        break;
+                    }
+                    case 4:
+                    {
+                        printf("Enter Key to be found ");
+                        int key; scanf("%d", &key);
+                        int x = BinarySearch(arr, key);
+                        x != -1 ? printf("\nFound at Index %d", x) : printf("\nKey Not Found");
+                        break;
+                    }
+                    case 5:
+                    {
+                        printf("Enter Key to be found ");
+                        int key; scanf("%d", &key);
+                        int x = RecursiveBinarySearch(arr.A, 0,arr.length, key);
+                        x != -1 ? printf("\nFound at Index %d", x) : printf("\nKey Not Found");
+                        break;
+                    }
+                    
+                    default: break;
+                        
                 }
             }
             default:
@@ -203,3 +268,5 @@ int main()
     
     return 0;
 }
+
+
